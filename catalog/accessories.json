@@ -1,0 +1,16 @@
+{
+  "accessories": [
+    {"id": "case-rugged", "name": "Rugged Protective Case", "category": "case", "price": 49, "best_for": ["active users", "outdoor", "parents"]},
+    {"id": "case-slim", "name": "Slim Leather Case", "category": "case", "price": 39, "best_for": ["style-conscious", "professionals"]},
+    {"id": "screen-protector", "name": "Tempered Glass Screen Protector", "category": "protection", "price": 25, "best_for": ["everyone"]},
+    {"id": "charger-fast", "name": "65W Fast Charger + USB-C cable", "category": "charging", "price": 45, "best_for": ["everyone"]},
+    {"id": "charger-wireless", "name": "Wireless Charging Pad", "category": "charging", "price": 55, "best_for": ["home/office use"]},
+    {"id": "earbuds-pro", "name": "Aurora Buds Pro (ANC)", "category": "audio", "price": 199, "monthly_24mo": 8.29, "best_for": ["commuters", "gym goers", "music lovers"]},
+    {"id": "earbuds-basic", "name": "Lumen Buds", "category": "audio", "price": 79, "best_for": ["everyday use", "budget"]},
+    {"id": "watch-pro", "name": "Aurora Watch Pro (LTE)", "category": "wearable", "price": 449, "monthly_24mo": 18.71, "additional_line_fee": 10, "best_for": ["fitness enthusiasts", "always-on connectivity"]},
+    {"id": "watch-active", "name": "Lumen Active Band", "category": "wearable", "price": 149, "best_for": ["fitness tracking", "budget wearable"]},
+    {"id": "hotspot", "name": "Northwind Hotspot Device", "category": "connectivity", "price": 99, "best_for": ["road warriors", "remote workers"]},
+    {"id": "insurance-premium", "name": "Northwind Protect+ Insurance", "category": "insurance", "price_monthly": 18, "best_for": ["new flagship buyers", "accident-prone"]},
+    {"id": "insurance-basic", "name": "Northwind Protect Basic", "category": "insurance", "price_monthly": 9, "best_for": ["budget protection"]}
+  ]
+}

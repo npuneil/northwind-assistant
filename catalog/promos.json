@@ -1,0 +1,35 @@
+{
+  "promos": [
+    {
+      "id": "trade-in-bonus-500",
+      "name": "Trade-in Bonus: up to $500 off flagship",
+      "eligibility": ["trade in working smartphone less than 5 years old", "Premium or Plus plan"],
+      "max_value": 500,
+      "applies_to_devices": ["aurora-x-pro", "aurora-x", "aurora-flip"]
+    },
+    {
+      "id": "bogo-line",
+      "name": "BOGO: Buy a flagship, get a Lumen 7 free with a new line",
+      "eligibility": ["add a new line", "24-month device financing", "Plus plan or higher"],
+      "value": 599,
+      "applies_to_devices": ["lumen-7"]
+    },
+    {
+      "id": "accessory-bundle-20",
+      "name": "Save 20% when you bundle 3+ accessories",
+      "eligibility": ["3 or more accessories purchased same day"],
+      "discount_pct": 20
+    },
+    {
+      "id": "family-switcher-300",
+      "name": "$300 switcher credit per line (family of 3+)",
+      "eligibility": ["port in from competing carrier", "3+ lines", "Family or Premium plan"],
+      "per_line_credit": 300
+    },
+    {
+      "id": "business-365-free",
+      "name": "Microsoft 365 Business Basic free for 12 months",
+      "eligibility": ["Business Pro plan", "2+ lines"]
+    }
+  ]
+}

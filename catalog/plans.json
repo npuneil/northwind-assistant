@@ -1,0 +1,61 @@
+{
+  "plans": [
+    {
+      "id": "essentials",
+      "name": "Northwind Essentials",
+      "price_per_line": 35,
+      "data_gb": 10,
+      "hotspot_gb": 0,
+      "intl_roaming": false,
+      "video_quality": "SD",
+      "best_for": ["light users", "budget-conscious", "second lines"],
+      "perks": []
+    },
+    {
+      "id": "plus",
+      "name": "Northwind Plus",
+      "price_per_line": 55,
+      "data_gb": 50,
+      "hotspot_gb": 10,
+      "intl_roaming": false,
+      "video_quality": "HD",
+      "best_for": ["mainstream users", "moderate streamers"],
+      "perks": ["1-year music streaming included"]
+    },
+    {
+      "id": "premium",
+      "name": "Northwind Premium",
+      "price_per_line": 75,
+      "data_gb": null,
+      "hotspot_gb": 40,
+      "intl_roaming": true,
+      "video_quality": "4K",
+      "best_for": ["power users", "frequent travelers", "heavy streamers"],
+      "perks": ["Unlimited premium data", "Apple TV+ / Netflix included", "International roaming in 215+ countries"]
+    },
+    {
+      "id": "family-4",
+      "name": "Northwind Family (4 lines)",
+      "price_per_line": 40,
+      "lines": 4,
+      "total_price": 160,
+      "data_gb": 50,
+      "hotspot_gb": 10,
+      "intl_roaming": false,
+      "video_quality": "HD",
+      "best_for": ["families", "households of 3-4"],
+      "perks": ["Save $60/mo vs 4 individual Plus lines", "Parental controls included"]
+    },
+    {
+      "id": "business-pro",
+      "name": "Northwind Business Pro",
+      "price_per_line": 65,
+      "data_gb": null,
+      "hotspot_gb": 50,
+      "intl_roaming": true,
+      "video_quality": "HD",
+      "best_for": ["small business", "remote workers", "field teams"],
+      "perks": ["Priority network access", "Microsoft 365 Business Basic included", "Dedicated business support"]
+    }
+  ]
+}

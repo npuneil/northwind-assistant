@@ -1,0 +1,19 @@
+Seller: Hi there, welcome to Northwind Mobile. How can I help?
+
+Customer: I'm adding two lines for my business. I run a small HVAC company, six technicians in the field. I already have four lines on Northwind Business Pro and I need two more for new hires.
+
+Seller: Great. What devices are you thinking for the new techs?
+
+Customer: Something rugged and reliable. They're in attics, basements, crawl spaces all day. Last set we got - the Lumen 6 - has held up okay but the cameras aren't great and we use the camera a lot for job documentation.
+
+Seller: How important is camera quality vs price?
+
+Customer: Camera matters more than I thought. We had two warranty disputes last year because our photos were too blurry to prove the original install condition. But I'm not paying $1,200 a phone for the field guys.
+
+Seller: Any hotspot needs?
+
+Customer: Yes. They tether their tablets for our work order app. Sometimes in areas with bad signal, so we need decent priority too.
+
+Seller: Are these techs going to need protection plans?
+
+Customer: Absolutely. We replace at least one screen a quarter.

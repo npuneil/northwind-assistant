@@ -1,0 +1,79 @@
+{
+  "devices": [
+    {
+      "id": "aurora-x-pro",
+      "oem": "Aurora",
+      "name": "Aurora X Pro",
+      "tier": "flagship",
+      "price_full": 1199,
+      "price_24mo": 49.96,
+      "storage_gb": 256,
+      "display_in": 6.8,
+      "camera_mp": 200,
+      "battery_mah": 5000,
+      "color_options": ["Obsidian", "Titanium", "Sapphire"],
+      "highlights": ["Pro camera system", "All-day battery", "Best-in-class display"],
+      "best_for": ["power users", "photographers", "premium upgraders"]
+    },
+    {
+      "id": "aurora-x",
+      "oem": "Aurora",
+      "name": "Aurora X",
+      "tier": "flagship",
+      "price_full": 899,
+      "price_24mo": 37.46,
+      "storage_gb": 128,
+      "display_in": 6.3,
+      "camera_mp": 50,
+      "battery_mah": 4500,
+      "color_options": ["Obsidian", "Mist", "Coral"],
+      "highlights": ["Flagship performance at a lower price", "Compact form factor"],
+      "best_for": ["one-handed users", "everyday flagship buyers"]
+    },
+    {
+      "id": "lumen-7",
+      "oem": "Lumen",
+      "name": "Lumen 7",
+      "tier": "mid",
+      "price_full": 599,
+      "price_24mo": 24.96,
+      "storage_gb": 128,
+      "display_in": 6.5,
+      "camera_mp": 64,
+      "battery_mah": 5200,
+      "color_options": ["Graphite", "Ocean", "Lavender"],
+      "highlights": ["Great battery life", "Solid camera", "Smooth 120Hz display"],
+      "best_for": ["mainstream users", "families", "balanced budget"]
+    },
+    {
+      "id": "lumen-7-lite",
+      "oem": "Lumen",
+      "name": "Lumen 7 Lite",
+      "tier": "budget",
+      "price_full": 329,
+      "price_24mo": 13.71,
+      "storage_gb": 64,
+      "display_in": 6.1,
+      "camera_mp": 32,
+      "battery_mah": 4800,
+      "color_options": ["Graphite", "Ocean"],
+      "highlights": ["Most affordable smartphone in lineup", "Reliable everyday use"],
+      "best_for": ["budget-conscious", "first phone", "kids line"]
+    },
+    {
+      "id": "aurora-flip",
+      "oem": "Aurora",
+      "name": "Aurora Flip",
+      "tier": "flagship",
+      "price_full": 1099,
+      "price_24mo": 45.79,
+      "storage_gb": 256,
+      "display_in": 6.7,
+      "camera_mp": 50,
+      "battery_mah": 3700,
+      "color_options": ["Cream", "Lavender", "Graphite"],
+      "highlights": ["Compact foldable", "Cover screen for quick replies"],
+      "best_for": ["style-forward upgraders", "compact form factor"]
+    }
+  ]
+}

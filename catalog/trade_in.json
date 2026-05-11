@@ -1,0 +1,17 @@
+{
+  "trade_in_values": [
+    {"model_pattern": "iphone 15", "condition_good": 600, "condition_fair": 400},
+    {"model_pattern": "iphone 14", "condition_good": 450, "condition_fair": 280},
+    {"model_pattern": "iphone 13", "condition_good": 320, "condition_fair": 180},
+    {"model_pattern": "iphone 12", "condition_good": 200, "condition_fair": 110},
+    {"model_pattern": "iphone 11", "condition_good": 120, "condition_fair": 60},
+    {"model_pattern": "galaxy s24", "condition_good": 550, "condition_fair": 350},
+    {"model_pattern": "galaxy s23", "condition_good": 380, "condition_fair": 220},
+    {"model_pattern": "galaxy s22", "condition_good": 230, "condition_fair": 130},
+    {"model_pattern": "pixel 8", "condition_good": 380, "condition_fair": 230},
+    {"model_pattern": "pixel 7", "condition_good": 200, "condition_fair": 110},
+    {"model_pattern": "aurora x", "condition_good": 500, "condition_fair": 320},
+    {"model_pattern": "lumen 6", "condition_good": 180, "condition_fair": 90}
+  ],
+  "notes": "Trade-in values are estimates. Final value confirmed at point of sale after device inspection."
+}

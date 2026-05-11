@@ -1,0 +1,19 @@
+Seller: Welcome to Northwind. What can I help you with today?
+
+Customer: I want the new Aurora X Pro. I've been waiting for the 200-megapixel camera. I do a lot of travel photography on the side, and my current phone, a Galaxy S22, just isn't cutting it anymore.
+
+Seller: Great choice. Single line or family?
+
+Customer: Single line, just me. I travel internationally a lot for work, probably 8-10 trips a year, Europe and Asia mostly.
+
+Seller: Do you stream a lot or use hotspot when you travel?
+
+Customer: Constantly. I tether my laptop on flights with wifi, I stream 4K to my hotel TV. I also do a lot of video editing on the go, so storage matters.
+
+Seller: Are you on Northwind today?
+
+Customer: No, I'm on Verizon, paying about $90 a month for unlimited but the international roaming is terrible. I had to buy local SIMs in Tokyo last month.
+
+Seller: What about protection? The Pro is a $1,200 phone.
+
+Customer: Yeah, I drop my phone constantly. Last one had a cracked screen for a year.

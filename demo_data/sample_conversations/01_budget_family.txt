@@ -1,0 +1,19 @@
+Seller: Hi, welcome to Northwind Mobile. What brings you in today?
+
+Customer: Hi. My daughter is starting middle school and we want to get her a phone. And honestly mine is on its last legs too, the battery dies by lunch. It's an iPhone 12.
+
+Seller: Got it. So two phones - one for your daughter, one upgrade for you. What's your budget thinking?
+
+Customer: I'm trying to keep this reasonable. For her, something simple and durable - she's going to drop it. For me, I don't need anything fancy, I mostly use it for email, maps, and the family group chat. We watch some Netflix on trips.
+
+Seller: Are you currently on a family plan?
+
+Customer: Yeah, four lines on AT&T. My husband and son are on it too. We pay about $220 a month and it feels high. Data is fine, we have wifi at home.
+
+Seller: How much data do you actually use per line, ballpark?
+
+Customer: Maybe 8-10 gigs each? My son games a bit on the road.
+
+Seller: Okay, that helps a lot. Any international travel coming up?
+
+Customer: No, we're a homebody family.
