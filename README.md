@@ -1,12 +1,109 @@
-# Northwind Mobile — On-Device AI Seller Assistant
+# Northwind Mobile — On-Device AI Seller Assistant 📱
 
-A Copilot+ PC demo that helps telco retail sellers maximize **total customer value** during in-store conversations — recommending the right plan, accessories, trade-ins, and promos based on the live conversation. **100% on-device** via Foundry Local on the NPU.
+A showcase application demonstrating on-device AI for telco retail sellers, running entirely on the NPU (Neural Processing Unit) via **Microsoft Foundry Local**. Listens to the in-store conversation between a seller and a customer, extracts a structured customer profile, and surfaces the right **device + plan + accessory bundle + trade-in + promo** in real time — maximizing **total value per customer** without sending a single byte of conversation audio to the cloud. Optimized for **Intel Core Ultra (AI Boost NPU)** with Phi-4 Mini; Snapdragon X (QNN) is also auto-detected. Works in airplane mode.
 
-## Why this matters
+## On-Device AI Prototypes & Sample Code
 
-- **Privacy:** the customer conversation never leaves the device — no cloud, no recording in someone else's data center.
-- **Reliability:** retail Wi-Fi is unreliable. On-device means consistent latency, even in airplane mode.
-- **Total value:** sellers often miss adjacent value (plan tier, accessories, trade-in, promos). This assistant surfaces them in real time.
+### Overview
+
+This repository contains prototypes, demos, and sample code that illustrate patterns for building on-device AI solutions. The content is provided for educational and demonstration purposes only to help developers explore ideas and implementation approaches.
+
+This repository does not contain Microsoft products and is not a supported or production-ready offering.
+
+### Prototype & Sample Code Disclosure
+
+- All code and demos are experimental prototypes or samples.
+- They may be incomplete, change without notice, or be removed at any time.
+- The contents are provided "as-is," without warranties or guarantees of any kind.
+
+### No Product, Performance, or Business Claims
+
+- This repository makes no claims about performance, accuracy, productivity, efficiency, cost savings, reliability, or security.
+- Any example outputs, screenshots, or logs are illustrative only and should not be interpreted as typical or expected results.
+
+### AI Output Variability
+
+- AI and machine-learning outputs may be non-deterministic, incomplete, or incorrect.
+- Example outputs shown here are not guaranteed and may vary across runs, devices, or environments.
+
+### Responsible AI Considerations
+
+- These samples are intended to demonstrate technical patterns, not validated AI systems.
+- Developers are responsible for evaluating fairness, reliability, privacy, accessibility, and safety before using similar approaches in real applications.
+- Do not deploy AI solutions based on this code without appropriate testing, human oversight, and safeguards.
+
+### Data & Fictitious Content
+
+- Any names, data, or scenarios used in examples are fictitious and for illustration only.
+- All carrier, device, and OEM names ("Northwind Mobile", "Aurora", "Lumen") are invented for this demo and do not represent real products.
+- Do not use real personal, customer, or confidential data without proper authorization and protections.
+
+### Third-Party Components
+
+- The repository may reference third-party libraries or tools.
+- Use of those components is subject to their respective licenses and terms.
+
+### No Support
+
+Microsoft does not provide support, SLAs, or warranties for the contents of this repository.
+
+### Summary
+
+By using this repository, you acknowledge that it contains illustrative prototypes and sample code only, not supported or production-ready software.
+
+---
+
+## Quick Start
+
+```powershell
+# First time:
+winget install Microsoft.FoundryLocal
+foundry model run phi-4-mini --device NPU
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Every time:
+python northwind_assistant.py     # opens at http://localhost:5000
+```
+
+Or just double-click `run.bat`.
+
+## Prerequisites
+
+- **Windows 11 Copilot+ PC** with Intel Core Ultra (AI Boost NPU) or Snapdragon X NPU
+- **Python 3.10+**
+- **Foundry Local** installed (`winget install Microsoft.FoundryLocal`)
+
+## NPU Optimization
+
+This app is silicon-aware and probes Foundry Local at startup:
+
+- **NPU-first model preference**:
+  - Intel → `phi-4-mini-instruct-openvino-npu` → `-openvino-gpu` → generic-cpu fallback
+  - Qualcomm → `phi-3.5-mini-instruct-qnn` → generic fallback
+- **Auto-discovery** of the running Foundry Local port (parses `foundry service status`) and best available NPU model from `/v1/models`
+- **Auto-load** the preferred model on NPU with a **2-hour TTL** so it stays hot across a demo session
+- **OpenAI-compatible client** against `http://127.0.0.1:<port>/v1` — bypasses the SDK to avoid version churn
+- **Max generation clamped to 480 tokens** to stay inside the OpenVINO NPU output cache window
+- **CPU/GPU fallback** when no NPU model is available; **demo-mode heuristic fallback** when Foundry Local isn't running so the UI still works end-to-end
+
+## Features
+
+| Panel | Description |
+|-------|-------------|
+| **Live Conversation** | Web Speech API mic capture (or load one of three scripted demo conversations) with editable transcript pane |
+| **Customer Profile** | One-shot Phi-4 Mini extraction of segment, budget band, lines needed, monthly data usage, current carrier/device, interests, pain points, intl-travel, insurance intent |
+| **Device Recommendation** | Primary pick + 1 alternative with rationale, financing options, and highlight bullets |
+| **Plan Recommendation** | Right-sized plan (Essentials / Plus / Premium / Family 4-line / Business Pro) with perks |
+| **Accessory Bundle** | Case, charger, screen protector, earbuds, watch, insurance — matched to interests + segment |
+| **Trade-In Estimate** | Catalog lookup against the customer's current device (iPhone / Galaxy / Pixel / Lumen) |
+| **Promo Eligibility** | Trade-in flagship bonus, BOGO, switcher credit, Business 365 free, accessory bundle discount |
+| **Cart Summary** | Itemized device + plan + accessories with monthly total, upfront, 24-month total, and **total-value uplift vs Essentials baseline** |
+| **EN/ES Toggle** | On-device Spanish translation of the customer-facing cart summary |
+| **Seller Coach** | Private right-panel chat with `[TOOL_CALL]` shim (`lookup_plan`, `compare_plans`, `lookup_promo`, `list_all`) for objection handling and policy lookups |
+| **Audit Trail** | Live trace of every tool call with elapsed time + cumulative tokenomics surfaced in the footer (local-AI cost saved, CO₂ avoided) |
+| **Offline Toggle** | Simulate airplane mode; everything still works because everything is local |
 
 ## Architecture
 
@@ -14,126 +111,55 @@ A Copilot+ PC demo that helps telco retail sellers maximize **total customer val
 Browser (localhost:5000)
    │
    ├── Live Conversation Panel
-   │     ├── Web Speech API mic + scripted demo transcripts
-   │     ├── Entity extraction (Phi-4 Mini on NPU, ~9s)
-   │     ├── Recommendation cards (device / plan / accessories / trade-in / promos)
-   │     └── Cart summary with 24-month total + total-value uplift
+   │     ├── Web Speech API → streaming transcript
+   │     ├── /transcribe-turn  → Phi entity extraction (JSON)
+   │     ├── /recommend        → device / plan / accessories / trade-in / promos
+   │     └── /cart             → itemized totals + uplift
    │
    └── Seller Coach Panel
-         └── Private chat (objection handling + [TOOL_CALL] shim for catalog lookups)
+         └── /coach            → [TOOL_CALL] shim over catalog tools
    │
-Flask backend (northwind_assistant.py)
+Flask backend (northwind_assistant.py, single file)
    │
    └── OpenAI-compatible HTTP API → Foundry Local service (random port)
-            │
-            ├── Intel Core Ultra → phi-4-mini-instruct-openvino-npu (OpenVINO EP)
-            └── Qualcomm Snapdragon X → phi-3.5-mini on QNN
+            ├── Intel Core Ultra → phi-4-mini-instruct-openvino-npu  (OpenVINO EP)
+            └── Snapdragon X     → phi-3.5-mini-instruct-qnn         (QNN EP)
 ```
 
-Silicon is auto-detected via WMI CPU name (authoritative on ARM64 where `platform.machine()` may report AMD64 under emulation). The Foundry Local endpoint is discovered at runtime by parsing `foundry service status`; the model id is resolved by querying `/v1/models` and preferring NPU-loaded OpenVINO/QNN variants.
+Silicon is detected via WMI CPU name (authoritative on ARM64 where `platform.machine()` may report AMD64 under x64 emulation). The Foundry Local endpoint is discovered at runtime by parsing `foundry service status` — no hard-coded ports.
 
-## Features
+## Sample Data
 
-- 🎙️ **Live conversation capture** via Web Speech API; plus three scripted demo conversations for reliable demo playback (budget family, premium upgrader, business line add).
-- 🧠 **Customer profile extraction** — segment, budget band, lines needed, monthly data usage, current carrier/device, interests, pain points, intl-travel, insurance intent.
-- 📱 **Device recommendation** with a sensible alternative.
-- 📶 **Plan recommendation** with ARPU uplift vs Essentials baseline.
-- 🎧 **Accessory bundle** matched to customer interests + segment.
-- 🔄 **Trade-in estimate** by model lookup.
-- 🎁 **Promo eligibility** — trade-in bonus, BOGO, switcher credit, business 365, bundle discount.
-- 🛒 **One-click cart** — itemized monthly + upfront + 24-month total + total-value uplift.
-- 🌎 **EN/ES toggle** — translates customer-facing cart summary on-device.
-- 💬 **Seller Coach** — private chat with `[TOOL_CALL]` shim for objection handling and catalog lookups.
-- 📊 **Audit trail + tokenomics** — every tool call logged; cumulative local-AI savings widget.
-- ✈️ **Offline toggle** — simulate airplane mode; everything still works.
+The fictional **Northwind Mobile** catalog lives in `catalog/*.json`:
 
-## Quick Start
+- **5 devices** across Aurora (flagship/flip) and Lumen (mid/budget) lines with full pricing, financing, specs, and target-customer hints
+- **5 plans** — Essentials ($35), Plus ($55), Premium ($75), Family 4-line ($160 bundle), Business Pro ($65)
+- **12 accessories** across case, charging, audio, wearable, connectivity, insurance categories
+- **5 promos** — trade-in flagship bonus, BOGO line, switcher credit, Business 365 free, accessory bundle 20% off
+- **12 trade-in models** with good/fair condition values (iPhone 11-15, Galaxy S22-24, Pixel 7-8, etc.)
+- **3 scripted demo conversations** in `demo_data/sample_conversations/` for reliable mic-free playback (budget family, premium upgrader, business line-add)
 
-### Prerequisites
-- Windows 11 24H2 on a Copilot+ PC (Intel Core Ultra or Snapdragon X)
-- Python 3.10+
-- Foundry Local (`winget install Microsoft.FoundryLocal`)
+All carrier, device, and OEM names are invented. Edit any JSON file and reload — no rebuild needed.
 
-### Install + Run
-```powershell
-.\setup.ps1     # one-time: installs Foundry Local + Python deps
-.\run.bat       # starts Flask on http://127.0.0.1:5000
-```
+## Demo Experience
 
-Or manual:
-```powershell
-pip install -r requirements.txt
-python northwind_assistant.py
-```
-
-Then open **http://127.0.0.1:5000**.
-
-## Demo Script (5 minutes)
-
-1. Click **"Load demo conversation"** → choose **"Premium upgrader"**.
-2. Click **Analyze ▸**. Watch the Customer Profile populate (Aurora X Pro intent, Verizon, intl travel, Galaxy S22 trade-in).
-3. Recommendations cascade in: Aurora X Pro + Premium plan + Pro accessories + $350 trade-in + flagship promo.
-4. Cart summary shows monthly + 24-month total + **total-value uplift vs baseline**.
-5. Click **ES** → cart translates to Spanish on-device.
-6. In Seller Coach (right panel), type: *"Customer says the Pro is too expensive — what do I say?"* — coach responds with specific talk-track using cart numbers.
-7. Toggle **Go Offline** → re-run analyze. Still works.
-
-## Project Layout
-
-```
-northwind-assistant/
-├── northwind_assistant.py    # Flask app (HTML/CSS/JS inline)
-├── catalog/                  # Fictional Northwind Mobile catalog
-│   ├── devices.json
-│   ├── plans.json
-│   ├── accessories.json
-│   ├── promos.json
-│   └── trade_in.json
-├── demo_data/sample_conversations/
-│   ├── 01_budget_family.txt
-│   ├── 02_premium_upgrader.txt
-│   └── 03_business_line_add.txt
-├── requirements.txt
-├── setup.ps1
-├── run.bat
-└── README.md
-```
+**The key demo moment:** Load the "**Premium upgrader**" sample conversation, click **Analyze ▸**, and watch Phi-4 Mini on the NPU pull a structured customer profile out of a 6-line conversation in ~10 seconds — international traveler, Verizon, Galaxy S22 ready for trade-in, photography hobbyist — then cascade into Aurora X Pro + Northwind Premium + Pro accessories + $230 trade-in + flagship promo. Click **ES** and the cart translates to Spanish on-device in ~4 seconds. Toggle **Go Offline** and run it again. Then ask the Seller Coach *"Customer says it's too expensive — what do I say?"* and watch it pull live numbers from the catalog tools to build a talk-track. None of the conversation ever touches the cloud.
 
 ## Endpoints
 
 | Endpoint | Purpose |
 |----------|---------|
 | `GET /` | UI |
-| `GET /health` | Silicon + Foundry status |
+| `GET /health` | Silicon, model, and Foundry status |
 | `GET /catalog/{devices,plans,accessories,promos,trade_in}` | Raw catalog |
-| `GET /sample-conversation/{key}` | Scripted transcripts |
+| `GET /sample-conversation/{key}` | Scripted demo transcripts |
 | `POST /transcribe-turn` | Extract customer profile from transcript |
 | `POST /recommend` | Build recommendation from profile |
-| `POST /cart` | Itemized cart + totals |
-| `POST /coach` | Seller chat with tool-calling shim |
+| `POST /cart` | Itemized cart + 24-month total + uplift |
+| `POST /coach` | Seller chat (with tool-calling shim) |
 | `POST /translate` | EN ↔ ES |
 | `GET /audit` | Recent tool calls + cumulative tokenomics |
 
-## Notes
+## License
 
-- All carrier, device, and OEM names are **fictional** to avoid trademark concerns.
-- The app gracefully degrades to **Demo Mode** with heuristic-based fallbacks if Foundry Local isn't running, so the UI still demos end-to-end on any Windows machine.
-- Tool-calling uses the `[TOOL_CALL]{...}[/TOOL_CALL]` marker shim (same pattern as surface-npu-demo) since some Phi variants lack native tool-calling.
-- The Foundry Local OpenAI endpoint binds to a **random port** per service start; the app discovers it by parsing `foundry service status` so no hard-coding required.
-- NPU context budget on Phi-4 Mini OpenVINO is **3696 input / 528 output tokens** — outputs are clamped to 480.
-- Model TTL is set to **7200s** (2h) when loaded by the app so the NPU model stays hot through a demo session.
-
-## Verified on Intel Core Ultra
-
-```
-silicon=intel  model=phi-4-mini-instruct-openvino-npu:3  endpoint=http://127.0.0.1:60326/v1
-```
-
-End-to-end smoke test (all 3 scenarios + coach + translate + audit) passes against the live NPU:
-
-| Step | Latency |
-|------|---------|
-| Entity extraction | ~9-11s |
-| Recommendation rationale | ~6-8s |
-| Coach with tool calls | ~10-22s |
-| Spanish translation | ~4s |
+MIT.
